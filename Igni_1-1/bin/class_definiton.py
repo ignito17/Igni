@@ -1,16 +1,20 @@
 # Cointains class definitions.
 
-import path_definitons as p_d
+# Importing internal imports 
+from data_process import internal_imports
+
+# catching path dict 
+path=internal_imports.path
 
 # igni is the blueprint for custom "base" object
 class igni():
     app_version=1-1
     def __init__(self,name) -> None:
         self.name=str(name)
-        self.__obj_data_storage=p_d.path["data_store"]+"obj_name"
         pass
-    def get_obj_data_storage_path(self):
-        print(self.__obj_data_storage)
 
-to_do=igni("to_do")
-to_do.get_obj_data_storage_path()
+# This is the blueprint for custom "topic" object 
+class topic(igni):
+    def __init__(self, name):
+        super().__init__(name)
+        self.__obj_data_storage_path=path["data_store"]+"obj_name"
