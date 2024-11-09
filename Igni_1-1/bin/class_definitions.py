@@ -1,7 +1,8 @@
 # Cointains class definitions.
 
 # Importing internal imports 
-from data_process import internal_imports as ii
+from data_process.internal_imports import refs
+from data_process.bin_processor import obj_manager
 
 # Importing external imports
 from data_process import external_imports as ei
@@ -19,25 +20,28 @@ class topic(igni):
         super().__init__(name)
         self.__obj_name=name.strip()
         self.__obj_name=self.__obj_name.replace(" ","_")
-        self.__obj_data_storage_path=ii.path_dict["data_store"]["topics"]+f"{self.__obj_name}"
+        self.__obj_data_storage_path=refs.path["data_store"]["topics"]+f"{self.__obj_name}"
         self.__timestamp_dict={"Start":None,
                           "Pause":None,
                           "Stop":None}
-    
+        self.__obj_data=None
+
+    # Add data to object
+    def add_data(self,data):
+        self.__obj_data=data
+
+    # Object data storage path getter
     def _get_storage_path(self):
         return self.__obj_data_storage_path
-
+    
+    # Add function to show object data
+    def show_data(self):
+        for x in self.__obj_data:
+            yield x
+    
     # A fucntion to show dates
     def _show_timestamps(self):
-        # f_string=f"Topic object {self.__obj_name}"
-        '''
-        for timestamp in self.__timestamp_dict.keys():
-            if self.__timestamp_dict[timestamp]:
-                yield [timestamp,self.__timestamp_dict[timestamp]]
-            else:
-                yield [timestamp,None]
-        '''
-        yield (timestamp, time) for timestamp, time in self.__timestamp_dict.items()
+        return [(timestamp, time) for timestamp, time in self.__timestamp_dict.items()]
 
 # This is the blueprint for custom "tracker" object
 class tracker(igni):
@@ -45,8 +49,12 @@ class tracker(igni):
         super().__init__(name)
         self.__obj_name=name.strip()
         self.__obj_name=self.__obj_name.replace(" ","_")
-        self.__obj_data_storage_path=ii.path_dict["data_store"]["trackers"]+f"{self.__obj_name}"
-    
+        self.__obj_data_storage_path=refs.path["data_store"]["trackers"]+f"{self.__obj_name}"
+       
+        # To store other objects and their links
+        # self.__object_map={}    # {"obj_name":{"obj_p1":value},}
+        self.__track_map={}     # {"obj_name":{obje_p1":value},}
+
+    # Object data storage path getter
     def _get_storage_path(self):
         return self.__obj_data_storage_path
-    

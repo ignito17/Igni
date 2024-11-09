@@ -10,3 +10,5 @@ for x in ds_obj._show_timestamps():
 # tracker object
 ds_tracker_obj=c_d.tracker(name="ds_tracker")
 print(ds_tracker_obj._get_storage_path())
+ds_tracker_obj._manage_obj()
+ds_tracker_obj._manage_obj.add()

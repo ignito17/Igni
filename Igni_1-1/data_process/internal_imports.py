@@ -1,6 +1,7 @@
 # Contains path definitons of the project
 # Is static         -- 27/10/2024
 
+# A dictionary to store path data of the project, output type is string
 path_dict={"root":"/",
       "bin":"/bin/",
       "data_process":"/data_process/",
