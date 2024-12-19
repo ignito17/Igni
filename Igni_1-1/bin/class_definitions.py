@@ -40,7 +40,7 @@ class topic(igni):
             yield x
     
     # A fucntion to show dates
-    def _show_timestamps(self):
+    def __show_timestamps(self):
         return [(timestamp, time) for timestamp, time in self.__timestamp_dict.items()]
 
 # This is the blueprint for custom "tracker" object
@@ -54,7 +54,3 @@ class tracker(igni):
         # To store other objects and their links
         # self.__object_map={}    # {"obj_name":{"obj_p1":value},}
         self.__track_map={}     # {"obj_name":{obje_p1":value},}
-
-    # Object data storage path getter
-    def _get_storage_path(self):
-        return self.__obj_data_storage_path

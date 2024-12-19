@@ -32,3 +32,4 @@ def obj_manager(map_obj:dict):
     obj_manager.add=add
     obj_manager.remove=remove
     obj_manager.new_value=new_value
+    return obj_manager
