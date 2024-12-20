@@ -4,8 +4,8 @@ def obj_manager(map_obj:dict):
 
     # Display the current objects
     def display():
-         for x, y in map_obj.items():
-             yield (x,y)
+        for x, y in map_obj.items():
+            yield (x,y)
         
     # add k-v pair
     def add(obj_key,obj_value):
@@ -25,6 +25,12 @@ def obj_manager(map_obj:dict):
                 return
             else:
                 return f"No key found with name {obj_key}" 
+
+    def commit():
+        return map_obj
+    
+    def reset():
+        return
         
         # Earlier this was a nested method of class tracker.
         # self.obj_manager.display=display
@@ -32,4 +38,6 @@ def obj_manager(map_obj:dict):
     obj_manager.add=add
     obj_manager.remove=remove
     obj_manager.new_value=new_value
+    obj_manager.commit=commit
+    obj_manager.reset=reset
     return obj_manager

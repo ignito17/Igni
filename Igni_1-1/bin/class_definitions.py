@@ -18,39 +18,37 @@ class igni():
 class topic(igni):
     def __init__(self, name):
         super().__init__(name)
-        self.__obj_name=name.strip()
-        self.__obj_name=self.__obj_name.replace(" ","_")
-        self.__obj_data_storage_path=refs.path["data_store"]["topics"]+f"{self.__obj_name}"
+        self._obj_name=name.strip()
+        self._obj_name=self._obj_name.replace(" ","_")
+        self._obj_data_storage_path=refs.path["data_store"]["topics"]+f"{self._obj_name}"
         self.__timestamp_dict={"Start":None,
                           "Pause":None,
                           "Stop":None}
-        self.__obj_data=None
+        self._obj_data=None
 
     # Add data to object
-    def add_data(self,data):
-        self.__obj_data=data
+    def set_data(self,data):
+        self._obj_data=data
 
     # Object data storage path getter
     def _get_storage_path(self):
-        return self.__obj_data_storage_path
+        return self._obj_data_storage_path
     
     # Add function to show object data
-    def show_data(self):
-        for x in self.__obj_data:
-            yield x
+    def get_data(self):
+        return self._obj_data
     
     # A fucntion to show dates
-    def __show_timestamps(self):
+    def _show_timestamps(self):
         return [(timestamp, time) for timestamp, time in self.__timestamp_dict.items()]
 
 # This is the blueprint for custom "tracker" object
-class tracker(igni):
+class tracker(topic):
     def __init__(self, name) -> None:
         super().__init__(name)
-        self.__obj_name=name.strip()
-        self.__obj_name=self.__obj_name.replace(" ","_")
-        self.__obj_data_storage_path=refs.path["data_store"]["trackers"]+f"{self.__obj_name}"
+        self._obj_name=name.strip()
+        self._obj_name=self._obj_name.replace(" ","_")
+        self._obj_data_storage_path=refs.path["data_store"]["trackers"]+f"{self._obj_name}"
        
         # To store other objects and their links
-        # self.__object_map={}    # {"obj_name":{"obj_p1":value},}
-        self.__track_map={}     # {"obj_name":{obje_p1":value},}
+        self._obj_data={}           # {"obj_name":{obje_p1":value},}
