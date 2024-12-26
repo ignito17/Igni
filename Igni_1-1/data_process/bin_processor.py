@@ -1,35 +1,38 @@
 # Managing dictinoary objects of classes
 
-def obj_manager(map_obj:dict):
+def obj_manager(reference_map:dict):
+    local_map=reference_map.copy()
 
     # Display the current objects
     def display():
-        for x, y in map_obj.items():
+        for x, y in local_map.items():
             yield (x,y)
         
     # add k-v pair
     def add(obj_key,obj_value):
-        map_obj[obj_key]=obj_value
+        local_map[obj_key]=obj_value
         return 
        
     # remove k-v pair
     def remove(obj_key):
-        value=map_obj.pop(obj_key)
+        value=local_map.pop(obj_key)
         return (obj_key,value)
             
     # edit value 
     def new_value(obj_key,obj_value):
-        for key in map_obj.keys():
+        for key in local_map.keys():
             if key==obj_key:
-                map_obj[obj_key]=obj_value
+                local_map[obj_key]=obj_value
                 return
             else:
                 return f"No key found with name {obj_key}" 
 
     def commit():
-        return map_obj
+        reference_map.update(local_map)
+        return reference_map
     
     def reset():
+        local_map.clear()
         return
         
         # Earlier this was a nested method of class tracker.
