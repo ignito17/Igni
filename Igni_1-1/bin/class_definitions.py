@@ -2,13 +2,17 @@
 
 # Importing internal imports 
 from data_process.internal_imports import refs
+<<<<<<< HEAD
+=======
+
+>>>>>>> 531b2419e17c745abf2c0ca6ff6ae3eec267d8ef
 
 # Importing external imports
 from data_process import external_imports as ei
 
 # igni is the blueprint for custom "base" object
 class igni():
-    app_version=1-1
+    app_version=1.1
     def __init__(self,name) -> None:
         self.name=str(name)
         pass

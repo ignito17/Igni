@@ -1,4 +1,4 @@
-This is and info file 
+This is an info file 
 It's non fucntional
 But defined variables will be written in separate line in Snake Case.
 version=1-1
