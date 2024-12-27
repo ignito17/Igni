@@ -1,11 +1,10 @@
 # Cointains class definitions.
+# Methods return literalls or strings only for  report codes 
+# They also return generator objects in case of multiple outputs of data
+# They always return in form of a data type or error type/return code
 
 # Importing internal imports 
 from data_process.internal_imports import refs
-<<<<<<< HEAD
-=======
-
->>>>>>> 531b2419e17c745abf2c0ca6ff6ae3eec267d8ef
 
 # Importing external imports
 from data_process import external_imports as ei
@@ -24,13 +23,14 @@ class topic(igni):
         self._obj_name=name.strip()
         self._obj_name=self._obj_name.replace(" ","_")
         self._obj_data_storage_path=refs.path["data_store"]["topics"]+f"{self._obj_name}"
-        self.__timestamp_dict={"Start":None,
-                          "Pause":None,
-                          "Stop":None}
-        self._obj_data=None
+        self.__timestamp_dict={"start":None,
+                          "pause":None,
+                          "resume":None,
+                          "finish":None}    # manages schedule    
+        self._obj_data=None                 # manages topic data
 
     # Add data to object
-    def set_data(self,data):
+    def set_data(self,data={}):
         self._obj_data=data
 
     # Object data storage path getter
@@ -41,9 +41,34 @@ class topic(igni):
     def get_data(self):
         return self._obj_data
     
-    # A fucntion to show dates
+    # A function to generate timestamps data
     def _show_timestamps(self):
-        return [(timestamp, time) for timestamp, time in self.__timestamp_dict.items()]
+        for timestamp, time in self.__timestamp_dict.items():
+            yield(timestamp,time)
+    
+    # Starting functionality for the timestamp_dict of the topic class
+    def start(self,schedule=ei.datetime.datetime.now().isoformat()):
+        if self.__timestamp_dict['finish']:
+            return f'alredy finished',(self._obj_name,self.__timestamp_dict['finish'])
+        elif self.__timestamp_dict['start'] or self.__timestamp_dict['pause']:
+            self.__timestamp_dict['resume']=schedule
+            return f'resume',(self._obj_name,self.__timestamp_dict['resume'])
+        else:
+            self.__timestamp_dict['start']=schedule
+            return f'start',(self._obj_name,self.__timestamp_dict['start'])
+    
+    # Stoping functionality for the timestamp_dict of the topic class
+    # Need to edit this function for finish functionality of the topic 
+    # Either should add one more method or integrate in stop
+    def stop(self,schedule=ei.datetime.datetime.now().isoformat()):
+        if self.__timestamp_dict['finish']:
+            return f'alredy finished',(self._obj_name,self.__timestamp_dict['finish'])
+        elif self.__timestamp_dict['start'] or self.__timestamp_dict['resume']:
+            self.__timestamp_dict['pause']=schedule
+            return f'pause',(self._obj_name,self.__timestamp_dict['pause'])
+        else:
+            self.__timestamp_dict['finish']=schedule
+            return f'finish',(self._obj_name,self.__timestamp_dict['finish'])
 
 # This is the blueprint for custom "tracker" object
 class tracker(topic):

@@ -1,12 +1,7 @@
 # Managing dictinoary objects of classes
 
-<<<<<<< HEAD
-def obj_manager(reference_map:dict):
-    local_map=reference_map.copy()
-=======
 def obj_data_manager(object_map:dict):     # To process object data
     local_map=object_map.copy()             # Copying the original dict
->>>>>>> 531b2419e17c745abf2c0ca6ff6ae3eec267d8ef
 
     # Display the current objects
     def display():
@@ -25,29 +20,19 @@ def obj_data_manager(object_map:dict):     # To process object data
             
     # edit value 
     def new_value(obj_key,obj_value):
-        for key in local_map.keys():
-            if key==obj_key:
-                local_map[obj_key]=obj_value
-                return
-            else:
-                return f"No key found with name {obj_key}" 
+        if obj_key in local_map.keys():
+            local_map[obj_key]=obj_value
+            return f"{obj_key} updated with the new value {obj_value}"
+        else:
+            return f"{obj_key} not found"
 
     def commit():
-<<<<<<< HEAD
-        reference_map.update(local_map)
-        return reference_map
-    
-    def reset():
-        local_map.clear()
-        return
-=======
         object_map.update(local_map)
         return object_map
     
     def reset():
         local_map.clear()
-        return object_map
->>>>>>> 531b2419e17c745abf2c0ca6ff6ae3eec267d8ef
+        return
         
         # Earlier this was a nested method of class tracker.
         # self.obj_data_manager.display=display
